@@ -1,0 +1,15 @@
+.container {
+    margin-top: 3rem;
+    display: flex;
+    justify-content: center;
+}
+.agregar-palabra{
+    font-size: 1rem;
+    padding: .5rem;
+    width: 18rem;
+    height: 4rem;
+    border: 2px solid #4d96f7 ;
+    border-radius: .5rem;
+    
+}
+
