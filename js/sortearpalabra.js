@@ -36,6 +36,12 @@ function valorDelIndice(letra, array){
 
 /*------------------------------------------------------*/
 var input = document.querySelector("[data-letra-input]");
+input.addEventListener("keypress", (e)=>{
+    e.preventDefault
+ if (e.key == "Enter"){
+    check.click();
+ }
+});
 let caracteresPermitidos = "abcdefghijklmnñopqrstuvwxyz"
 function validarCaracteres(){
     if(!caracteresPermitidos.includes(input.value)){
