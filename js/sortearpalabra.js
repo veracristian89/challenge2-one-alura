@@ -3,6 +3,7 @@ const juegoNuevo = document.querySelector("[data-nuevo-btn]");
 let listaDePalabras = ["autobus", "teclado", "programa", "aprender", "funcion", "lista", "mano", "celebrar", "pensar"];
 let palabra = "";
 let listaLetras = [];
+let letrasIngresadas =[];
 
 /*funcion para sortear palabra*/
 function sortearPalabra(){
@@ -21,7 +22,8 @@ juegoNuevo.addEventListener("click", function(event){
     listaLetras = [...palabra];
     dibujarLineasPalabra();
     console.log(listaLetras);
-    
+    vidas = 0;
+    letrasIngresadas =[];
 });
 
 /* valida si la letra esta y devuelve un array con las posiciones */
@@ -60,7 +62,8 @@ function validarCaracteres(){
 /*----------------------------------------------------------------*/
 let vidas = 0;
 let xError = 450;
-let letrasIngresadas =[];
+
+let letrasCorrectasIngresadas = []
 
 check.addEventListener("click", function(event){
     event.preventDefault();
