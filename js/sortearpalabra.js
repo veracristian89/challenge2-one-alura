@@ -1,8 +1,10 @@
 /***iniciar juego***/
-const juegoNuevo = document.querySelector("[data-nuevo-btn]");
+const juegoNuevoBtn = document.querySelector("[data-nuevo-btn]");
 let listaDePalabras = ["autobus", "teclado", "programa", "aprender", "funcion", "lista", "mano", "celebrar", "pensar"];
 let palabra = "";
 let listaLetras = [];
+let vidas = 0;
+let aciertos = 0;
 let letrasIngresadas =[];
 
 /*funcion para sortear palabra*/
@@ -14,7 +16,7 @@ function dibujarLineasPalabra(){
         dibujarLineaLetra(500 + contador,510);
     }
 }
-juegoNuevo.addEventListener("click", function(event){
+juegoNuevoBtn.addEventListener("click", function(event){
     event.preventDefault();
     pincel.clearRect(0,0,1200,700)
     crearTablero();
@@ -24,6 +26,7 @@ juegoNuevo.addEventListener("click", function(event){
     console.log(listaLetras);
     vidas = 0;
     letrasIngresadas =[];
+    xError = 450;
 });
 
 /* valida si la letra esta y devuelve un array con las posiciones */
@@ -60,11 +63,8 @@ function validarCaracteres(){
 }
 
 /*----------------------------------------------------------------*/
-let vidas = 0;
+
 let xError = 450;
-
-let letrasCorrectasIngresadas = []
-
 check.addEventListener("click", function(event){
     event.preventDefault();
 
@@ -76,6 +76,7 @@ check.addEventListener("click", function(event){
                 for(num=0;num<listaLetras.length; num++){
                     if(valorDelIndice(input.value, listaLetras)[indice] == num){
                         escribirEnCanvas(input.value.toUpperCase(),x ,500);
+                        aciertos++;
                         break;
                     }else{
                         x=x+60;
@@ -109,10 +110,27 @@ check.addEventListener("click", function(event){
     }else if(vidas == 5){
         dibujarDiagonalDerecha(750,350) //pierna derecha
         dibujarDiagonalIzquierda(750,350) //pierna izquierda
-        finDelJuego(palabra.toUpperCase(),200,650,"red");
+        finDelJuegoPerdedor(palabra.toUpperCase(),200,650,"red");
     }
-    
+    if(aciertos == listaLetras.length) {
+        finDelJuegoGanador(palabra.toUpperCase(),200,650)
+        vidas=6;
+    }
     
     input.value=""
     
 });
+
+/*----------------------------------------- */
+const desistirBtn = document.querySelector("[data-desistir-btn]");
+
+desistirBtn.addEventListener("click", (e)=>{
+    e.preventDefault();
+    
+    if(vidas != 6){
+        finDelJuegoPerdedor(palabra.toUpperCase(),200,650);
+        vidas=6;
+        aciertos=0;
+    }
+    
+})

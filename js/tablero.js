@@ -114,12 +114,21 @@ function escribirEnCanvas(letra,x,y){
     pincel.fillText(letra,x,y)
 }
 
-function finDelJuego(resultado,x,y,color){
-    pincel.fillStyle=color;
+function finDelJuegoPerdedor(resultado,x,y){
+    pincel.fillStyle="red";
     pincel.beginPath();
     pincel.font = "italic 50px Arial";
     pincel.fillText("Fin del Juego!! la palabra era " + resultado,x,y)
 }
+
+function finDelJuegoGanador(resultado,x,y){
+    pincel.fillStyle="green";
+    pincel.beginPath();
+    pincel.font = "italic 50px Arial";
+    pincel.fillText("Ganaste!! la palabra era " + resultado,x,y)
+}
+
+
 //y va a ser siempre 500
 //escribirEnCanvas(letra,x,500)
 
