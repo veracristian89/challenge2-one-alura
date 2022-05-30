@@ -23,10 +23,10 @@ juegoNuevoBtn.addEventListener("click", function(event){
     palabra = sortearPalabra();
     listaLetras = [...palabra];
     dibujarLineasPalabra();
-    console.log(listaLetras);
     vidas = 0;
     letrasIngresadas =[];
     xError = 450;
+    aciertos=0;
 });
 
 /* valida si la letra esta y devuelve un array con las posiciones */
@@ -92,7 +92,6 @@ check.addEventListener("click", function(event){
         }
         if (!letrasIngresadas.includes(input.value)){
             letrasIngresadas.push(input.value);
-            console.log(letrasIngresadas);
         }
     }
 
