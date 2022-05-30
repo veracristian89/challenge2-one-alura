@@ -118,7 +118,7 @@ function finDelJuego(resultado,x,y,color){
     pincel.fillStyle=color;
     pincel.beginPath();
     pincel.font = "italic 50px Arial";
-    pincel.fillText("Fin del Juego"+resultado,x,y)
+    pincel.fillText("Fin del Juego!! la palabra era " + resultado,x,y)
 }
 //y va a ser siempre 500
 //escribirEnCanvas(letra,x,500)

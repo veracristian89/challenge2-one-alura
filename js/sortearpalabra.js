@@ -1,7 +1,10 @@
 /***iniciar juego***/
 const juegoNuevo = document.querySelector("[data-nuevo-btn]");
+let listaDePalabras = ["autobus", "teclado", "programa", "aprender", "funcion", "lista", "mano", "celebrar", "pensar"];
 let palabra = "";
-var listaDePalabras = ["autobus", "teclado", "programa", "aprender", "funcion", "lista", "mano", "celebrar", "pensar"];
+let listaLetras = [];
+
+/*funcion para sortear palabra*/
 function sortearPalabra(){
     return listaDePalabras[(Math.floor(Math.random()*(listaDePalabras.length)))];
 }
@@ -15,15 +18,14 @@ juegoNuevo.addEventListener("click", function(event){
     pincel.clearRect(0,0,1200,700)
     crearTablero();
     palabra = sortearPalabra();
+    listaLetras = [...palabra];
     dibujarLineasPalabra();
+    console.log(listaLetras);
+    
 });
 
-/*------------------------------------------------------*/
-
+/* valida si la letra esta y devuelve un array con las posiciones */
 const check = document.querySelector("[data-check-btn]");
-let listaLetras = [];
-let vidas = 0;
-
 function valorDelIndice(letra, array){
     indices = [];
     for(var i = 0; i<array.length; i++){
@@ -34,7 +36,7 @@ function valorDelIndice(letra, array){
     return indices;     
 }
 
-/*------------------------------------------------------*/
+/*convirtiendo el enter del input en click del check*/
 var input = document.querySelector("[data-letra-input]");
 input.addEventListener("keypress", (e)=>{
     e.preventDefault
@@ -42,34 +44,30 @@ input.addEventListener("keypress", (e)=>{
     check.click();
  }
 });
-let caracteresPermitidos = "abcdefghijklmnñopqrstuvwxyz"
+
+/* validando que el input.value sea correcto */
+let caracteresPermitidos = "abcdefghijklmnñopqrstuvwxyzABCDEFJHIJKLMÑOPQRSTUVWXYZ"
 function validarCaracteres(){
     if(!caracteresPermitidos.includes(input.value)){
         alert("ingrese solo letras");
-        return false;
     }else if(input.value == ""){
-        alert("el campo no puede estar vacio");
-        return false;
+        alert("el campo no puede estar vacio");    
     }else{
         return true;
     }
 }
 
-let xError = 450
+/*----------------------------------------------------------------*/
+let vidas = 0;
+let xError = 450;
 let letrasIngresadas =[];
 
-//detectar letra tipeada
 check.addEventListener("click", function(event){
     event.preventDefault();
-       
-    let listaLetras = [...palabra];
-    
-    console.log(listaLetras);
-    console.log(letrasIngresadas);
 
-    if (validarCaracteres()) {
-        letrasIngresadas.push(input.value);
-        if(valorDelIndice(input.value, listaLetras).length >= 1){
+    if (validarCaracteres() && vidas < 5) {
+        
+        if(listaLetras.includes(input.value) && !letrasIngresadas.includes(input.value)){
             for(indice=0; indice<valorDelIndice(input.value, listaLetras).length; indice++){
                 var x=500;
                 for(num=0;num<listaLetras.length; num++){
@@ -81,13 +79,18 @@ check.addEventListener("click", function(event){
                     }
                 }
             }
-        } else {
+        } else if (!listaLetras.includes(input.value) && !letrasIngresadas.includes(input.value)) {
             xError= xError+50
             escribirEnCanvas(input.value.toUpperCase(),xError,560);
             vidas++;
+        } else if (letrasIngresadas.includes(input.value)) {
+            alert ("ya ingresaron esa letra")
+        }
+        if (!letrasIngresadas.includes(input.value)){
+            letrasIngresadas.push(input.value);
+            console.log(letrasIngresadas);
         }
     }
-    
 
     if(vidas == 1) {
         dibujarPoste();
@@ -103,11 +106,10 @@ check.addEventListener("click", function(event){
     }else if(vidas == 5){
         dibujarDiagonalDerecha(750,350) //pierna derecha
         dibujarDiagonalIzquierda(750,350) //pierna izquierda
-
+        finDelJuego(palabra.toUpperCase(),200,650,"red");
     }
     
     
     input.value=""
     
 });
-
