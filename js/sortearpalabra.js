@@ -51,10 +51,10 @@ input.addEventListener("keypress", (e)=>{
 });
 
 /* validando que el input.value sea correcto */
-let caracteresPermitidos = "abcdefghijklmnñopqrstuvwxyzABCDEFJHIJKLMÑOPQRSTUVWXYZ"
+let caracteresPermitidos = "abcdefghijklmnñopqrstuvwxyz"
 function validarCaracteres(){
     if(!caracteresPermitidos.includes(input.value)){
-        alert("ingrese solo letras");
+        alert("ingrese solo letras minusculas");
     }else if(input.value == ""){
         alert("el campo no puede estar vacio");    
     }else{
@@ -67,7 +67,7 @@ function validarCaracteres(){
 let xError = 450;
 check.addEventListener("click", function(event){
     event.preventDefault();
-
+    
     if (validarCaracteres() && vidas < 5) {
         
         if(listaLetras.includes(input.value) && !letrasIngresadas.includes(input.value)){
