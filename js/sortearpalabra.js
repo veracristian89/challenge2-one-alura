@@ -136,7 +136,7 @@ const desistirBtn = document.querySelector("[data-desistir-btn]");
 desistirBtn.addEventListener("click", (e) => {
     e.preventDefault();
 
-    if (vidas != 6) {
+    if (vidas != 6 && palabrasSorteadas) {
         finDelJuegoPerdedor(palabra.toUpperCase(), 200, 650);
         vidas = 6;
         aciertos = 0;
